@@ -1,0 +1,7 @@
+# ==============================================================================
+# Netlify Redirects & API Proxy for MusicMatch
+# ==============================================================================
+# Proxies frontend /api/* calls directly to the Vercel serverless backend.
+# Replace the URL below with your actual Vercel backend deployment URL:
+/api/*  https://y-one-eta-46.vercel.app/api/:splat  200!
+

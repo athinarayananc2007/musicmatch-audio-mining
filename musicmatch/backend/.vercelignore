@@ -1,0 +1,42 @@
+# Virtual environments (must never be uploaded to Vercel — Vercel builds its own)
+.venv/
+.venv*/
+venv/
+env/
+ENV/
+
+# Python cache and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Local databases and uploads
+*.db
+*.sqlite
+*.sqlite3
+musicmatch.db
+uploads/
+uploads/*
+
+# Secrets and local config
+.env
+.env.*
+.env.local
+
+# IDE & OS files
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Test caches
+.pytest_cache/
+htmlcov/
+.coverage
+test_*.py

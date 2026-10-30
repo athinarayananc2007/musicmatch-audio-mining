@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Database (the Docker volume handles this)
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded temp audio files
+uploads/*
+!uploads/.gitkeep
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests & coverage
+.pytest_cache/
+htmlcov/
+.coverage

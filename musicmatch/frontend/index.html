@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MusicMatch | Pure Sound-Based Music Discovery & Curation</title>
+  <meta name="description" content="MusicMatch analyzes raw musical sound—tempo, rhythm, harmonic texture, and timbre—to help music editors and listeners discover matching tracks and build cohesive playlists.">
+  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MusicMatch">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%237c3aed'/><path d='M55 135V75l75-15v60' stroke='white' stroke-width='9' fill='none' stroke-linecap='round'/><circle cx='43' cy='135' r='16' fill='white'/><circle cx='118' cy='120' r='16' fill='white'/></svg>">
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="home-page">
+  <!-- 3D Background Canvas -->
+  <canvas id="bg-canvas" data-scene="full"></canvas>
+  <div class="bg-glow-mesh"></div>
+
+  <div class="content-wrapper">
+    <!-- Sticky Navbar -->
+    <header class="navbar" id="main-nav">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <span>MusicMatch</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="nav-link active">Home</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+            <li><a href="demo.html" class="nav-link">Explore Music</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta-btn" style="display: flex; align-items: center; gap: 10px;">
+          <div id="nav-user-area"></div>
+          <a href="demo.html" class="btn btn-primary btn-sm">Explore Music</a>
+        </div>
+
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="demo.html" class="nav-link">Explore Music</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div style="margin-top: 12px;">
+        <a href="demo.html" class="btn btn-primary btn-sm" style="width: 100%;">Explore Music</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content reveal">
+            <div class="hero-badge">
+              <span class="pulse-dot"></span>
+              <span>Pure Acoustic Sound Intelligence</span>
+            </div>
+
+            <h1 class="hero-title">
+              Discover Your Next Sonic Obsession with <span class="text-gradient">Pure Sound Analysis</span>
+            </h1>
+
+            <p class="hero-description">
+              Move beyond subjective genre tags. MusicMatch listens to the actual audio waves—analyzing tempo, rhythm, harmonic texture, and tonal warmth—to organize soundscapes and find your perfect musical match.
+            </p>
+
+            <div class="hero-actions">
+              <a href="demo.html" class="btn btn-primary btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Explore Music</span>
+              </a>
+              <a href="how-it-works.html" class="btn btn-secondary btn-lg">
+                <span>Learn More</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <div class="hero-features-strip">
+              <div class="strip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                <span>Tempo, Timbre &amp; Rhythm Profiling</span>
+              </div>
+              <div class="strip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 12h8"></path>
+                </svg>
+                <span>Automated Mood &amp; Playlist Grouping</span>
+              </div>
+              <div class="strip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                </svg>
+                <span>Interactive Visual Sound Map</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Feature Highlights Section -->
+      <section class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">Pure Sound Intelligence</span>
+            <h2 class="section-title">How MusicMatch Listens to Sound</h2>
+            <p class="section-desc">
+              Analyzing the fundamental timbre, cadence, harmony, and frequency characteristics of songs to help editors and listeners curate with precision.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <!-- Card 1 -->
+            <div class="glass-card reveal">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 10v3"></path>
+                  <path d="M6 6v11"></path>
+                  <path d="M10 3v18"></path>
+                  <path d="M14 8v7"></path>
+                  <path d="M18 5v13"></path>
+                  <path d="M22 10v3"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Deep Acoustic Profiling</h3>
+              <p class="card-desc">
+                Evaluates timbral texture, vocal resonance, rhythmic tempo (BPM), and acoustic brightness directly from the sound waveform.
+              </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card reveal">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <circle cx="19" cy="5" r="2"></circle>
+                  <circle cx="5" cy="19" r="2"></circle>
+                  <circle cx="19" cy="19" r="2"></circle>
+                  <circle cx="5" cy="5" r="2"></circle>
+                </svg>
+              </div>
+              <h3 class="card-title">Harmonic Playlist Grouping</h3>
+              <p class="card-desc">
+                Groups tracks into naturally harmonious playlists and mood sets based on their shared audio characteristics, without relying on user bias.
+              </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card reveal">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <path d="M11 8v6"></path>
+                  <path d="M8 11h6"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Visual Sound Map &amp; Similarity</h3>
+              <p class="card-desc">
+                Calculates acoustic similarity to recommend tracks that genuinely feel right together, and projects your songs onto an interactive visual galaxy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step How It Works Preview -->
+      <section class="section section-sm">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">Workflow Preview</span>
+            <h2 class="section-title">How MusicMatch Finds Your Match</h2>
+            <p class="section-desc">
+              Four intuitive stages transform your audio tracks into curated playlists and recommendations.
+            </p>
+          </div>
+
+          <div class="steps-container reveal">
+            <div class="step-card">
+              <div class="step-number">01</div>
+              <h3 class="step-title">Upload Audio</h3>
+              <p class="step-desc">
+                Upload your music tracks in MP3 or WAV format, or record directly using your microphone.
+              </p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">02</div>
+              <h3 class="step-title">Acoustic Listening</h3>
+              <p class="step-desc">
+                MusicMatch analyzes the opening soundscape, measuring beat speed (BPM), frequency brightness, warmth, and texture.
+              </p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">03</div>
+              <h3 class="step-title">Smart Grouping</h3>
+              <p class="step-desc">
+                Tracks are balanced across all sound traits and organized into cohesive mood-based playlists.
+              </p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">04</div>
+              <h3 class="step-title">Discover &amp; Explore</h3>
+              <p class="step-desc">
+                Click any song to discover acoustically matching tracks and explore relative distances on the visual sound map.
+              </p>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 40px;" class="reveal">
+            <a href="how-it-works.html" class="btn btn-secondary">
+              <span>See How the Experience Works</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action Banner -->
+      <section class="section">
+        <div class="container">
+          <div class="cta-banner reveal">
+            <h2 class="section-title" style="font-size: clamp(2rem, 3.5vw, 2.75rem); margin-bottom: 18px;">
+              Ready to Explore Your Audio Collection?
+            </h2>
+            <p style="font-size: 1.15rem; max-width: 600px; margin: 0 auto 32px auto; color: var(--text-muted);">
+              Start exploring in your browser right now. Upload your audio tracks or load our sample music pack to discover matching soundscapes.
+            </p>
+            <a href="demo.html" class="btn btn-glow btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Explore Music Now</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="brand-logo" style="margin-bottom: 8px;">
+              <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <span>MusicMatch</span>
+            </a>
+            <p>An intelligent sound-based music discovery and recommendation platform designed for music editors, sound curators, and passionate listeners.</p>
+          </div>
+
+          <div class="footer-links-group">
+            <div class="footer-column">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="demo.html">Explore Music</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Platform</h4>
+              <ul>
+                <li><a href="about.html">About Vision</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="demo.html">Music Studio</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Sound Features</h4>
+              <ul>
+                <li><a href="how-it-works.html">Acoustic Profiling</a></li>
+                <li><a href="how-it-works.html">Harmonic Playlists</a></li>
+                <li><a href="how-it-works.html">Track Similarity</a></li>
+                <li><a href="how-it-works.html">Visual Sound Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 MusicMatch. Designed for Music Editors, Sound Curators &amp; Dedicated Listeners.</div>
+          <div>Pure Sound Discovery &bull; Spotify Powered</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- User Authentication Modal (Sign In / Register) -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close-btn" id="close-auth-modal" aria-label="Close dialog">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Auth Tabs Header (Segmented Pill Switcher) -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab-btn" data-tab="register">Create Account</button>
+      </div>
+
+      <div id="auth-modal-feedback" style="display: none;"></div>
+
+      <!-- Login Pane -->
+      <div class="auth-tab-pane active" id="auth-pane-login">
+        <form id="auth-login-form">
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="login-username" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Username</label>
+            <input type="text" id="login-username" class="form-input" placeholder="e.g. soundminer" required autocomplete="username" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="login-password" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Password</label>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="width: 100%; justify-content: center; padding: 12px;">
+            <span>Sign In to MusicMatch</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Register Pane -->
+      <div class="auth-tab-pane" id="auth-pane-register">
+        <form id="auth-register-form">
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="reg-username" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Username</label>
+            <input type="text" id="reg-username" class="form-input" placeholder="Choose a username (min 3 chars)" minlength="3" required autocomplete="username" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="reg-email" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Email Address</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="you@domain.com" required autocomplete="email" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="reg-password" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Password</label>
+            <input type="password" id="reg-password" class="form-input" placeholder="Create password (min 6 chars)" minlength="6" required autocomplete="new-password" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="width: 100%; justify-content: center; padding: 12px;">
+            <span>Create Free Account</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Saved Sessions Library Modal -->
+  <div class="modal-backdrop" id="library-modal">
+    <div class="modal-dialog library-modal-dialog">
+      <button type="button" class="modal-close-btn" id="close-library-modal" aria-label="Close dialog">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(6, 182, 212, 0.2); border: 1px solid rgba(6, 182, 212, 0.4); display: flex; align-items: center; justify-content: center; color: #22d3ee;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h2 style="font-size: 1.4rem; color: #fff; margin: 0;">My Saved Sessions</h2>
+          <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0;">Restoring a session reloads your analyzed tracks, visual sound map, and curated playlist groups.</p>
+        </div>
+      </div>
+
+      <div class="library-sessions-container" id="library-sessions-list">
+        <!-- Populated dynamically via auth.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/scene.js?v=2.4"></script>
+  <script src="js/main.js?v=2.4"></script>
+  <script src="js/auth.js?v=2.4"></script>
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => {
+            console.log('[MusicMatch] Service Worker registered:', reg.scope);
+            reg.update();
+          })
+          .catch(err => console.warn('[MusicMatch] SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

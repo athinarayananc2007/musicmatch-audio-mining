@@ -1,0 +1,41 @@
+# ==========================================
+# Environment Variables (Secrets & Keys)
+# ==========================================
+.env
+.env.*
+*.env
+!.env.example
+!.env.template
+
+# ==========================================
+# Python & Virtual Environments
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+.venv*/
+venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# ==========================================
+# Database & Temporary Uploads
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+uploads/*
+!uploads/.gitkeep
+
+# ==========================================
+# Deployments & Editor Configs
+# ==========================================
+.vercel
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

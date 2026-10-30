@@ -1,0 +1,9 @@
+[build]
+  base = "musicmatch/frontend"
+  publish = "."
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://your-musicmatch-backend.vercel.app/api/:splat"
+  status = 200
+  force = true

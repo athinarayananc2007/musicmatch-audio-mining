@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | MusicMatch</title>
+  <meta name="description" content="Get in touch with the MusicMatch team for inquiries, music partnership, feedback, or sound curation questions.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Fixed 3D Background Canvas -->
+  <canvas id="bg-canvas" data-scene="light"></canvas>
+  <div class="bg-glow-mesh"></div>
+
+  <div class="content-wrapper">
+    <!-- Sticky Navbar -->
+    <header class="navbar" id="main-nav">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <span>MusicMatch</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+            <li><a href="demo.html" class="nav-link">Explore Music</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link active">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta-btn">
+          <a href="demo.html" class="btn btn-primary btn-sm">Explore Music</a>
+        </div>
+
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="demo.html" class="nav-link">Explore Music</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+      <div style="margin-top: 12px;">
+        <a href="demo.html" class="btn btn-primary btn-sm" style="width: 100%;">Explore Music</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="section section-sm" style="padding-top: 120px;">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">Get In Touch</span>
+            <h1 class="section-title">Contact the MusicMatch Team</h1>
+            <p class="section-desc">
+              Have questions about audio matching, playlist curation, partnerships, or suggestions for our platform? We would love to hear from you.
+            </p>
+          </div>
+
+          <div class="grid-2" style="align-items: start;">
+            <!-- Contact Form Card -->
+            <div class="glass-card reveal">
+              <h2 style="font-size: 1.5rem; margin-bottom: 20px;">Send Us a Message</h2>
+
+              <!-- Real-time Feedback Box -->
+              <div id="contact-feedback" style="display: none; margin-bottom: 20px;"></div>
+
+              <form id="contact-form" novalidate>
+                <!-- Name Field -->
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Full Name</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Johnson" required>
+                  <div class="input-error"></div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">Email Address</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="e.g. alex@example.com" required>
+                  <div class="input-error"></div>
+                </div>
+
+                <!-- Message Field -->
+                <div class="form-group">
+                  <label for="contact-message" class="form-label">Message</label>
+                  <textarea id="contact-message" class="form-textarea" placeholder="Tell us about your project, music workflow, questions, or feedback..." required></textarea>
+                  <div class="input-error"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                  <span>Send Message</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Contact Information Card -->
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <div class="glass-card reveal">
+                <div class="card-icon" style="color: var(--accent-cyan); margin-bottom: 16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <h3 class="card-title">MusicMatch Studio &amp; Sound Lab</h3>
+                <p class="card-desc">
+                  Acoustic Intelligence &amp; Creative Sound Studio<br>
+                  Dedicated to Music Curators, Editors &amp; Creators<br>
+                  San Francisco, CA &amp; Remote Global Team
+                </p>
+              </div>
+
+              <div class="glass-card reveal">
+                <div class="card-icon" style="color: var(--accent-pink); margin-bottom: 16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <h3 class="card-title">Direct Inquiries</h3>
+                <p class="card-desc">
+                  <strong>Email:</strong> hello@musicmatch.ai<br>
+                  <strong>Support:</strong> support@musicmatch.ai<br>
+                  <strong>Response Window:</strong> Within 24-48 business hours
+                </p>
+              </div>
+
+              <div class="glass-card reveal">
+                <div class="card-icon" style="color: var(--accent-purple); margin-bottom: 16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                </div>
+                <h3 class="card-title">Community &amp; Creators</h3>
+                <p class="card-desc">
+                  Connect with music editors, sound designers, and audio creators sharing playlists and feedback across our community.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="brand-logo" style="margin-bottom: 8px;">
+              <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <span>MusicMatch</span>
+            </a>
+            <p>A sound-first music discovery and playlist curation platform that analyzes tempo, rhythm, and timbre so music lovers and editors can find the perfect match.</p>
+          </div>
+
+          <div class="footer-links-group">
+            <div class="footer-column">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="demo.html">Explore Music</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Project</h4>
+              <ul>
+                <li><a href="about.html">About Team</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="https://github.com" target="_blank" rel="noopener">Source Code</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Sound Discovery</h4>
+              <ul>
+                <li><a href="how-it-works.html">Tempo &amp; Rhythm Matching</a></li>
+                <li><a href="how-it-works.html">Mood &amp; Vibe Playlists</a></li>
+                <li><a href="how-it-works.html">Spotify Integration</a></li>
+                <li><a href="how-it-works.html">Visual Sound Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 MusicMatch. Designed for Music Editors, Curators &amp; Sound Lovers.</div>
+          <div>Audio Engine: High-Fidelity Waveform Processing &amp; Interactive Visualizations</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Music Studio | MusicMatch Sound Discovery</title>
+  <meta name="description" content="Upload your audio or record live to analyze rhythm, tempo, and timbre, create harmonic vibe playlists, visualize an interactive sound map, and discover matching music.">
+  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Fixed 3D Background Canvas -->
+  <canvas id="bg-canvas" data-scene="light"></canvas>
+  <div class="bg-glow-mesh"></div>
+
+  <div class="content-wrapper">
+    <!-- Sticky Navbar -->
+    <header class="navbar" id="main-nav">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <span>MusicMatch</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+            <li><a href="demo.html" class="nav-link active">Explore Music</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta-btn">
+          <!-- User Account / Profile Area -->
+          <div id="nav-user-area"></div>
+        </div>
+
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="demo.html" class="nav-link active">Explore Music</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="section" style="padding-top: 110px;">
+        <div class="container demo-dashboard">
+          
+          <!-- Section Header -->
+          <div class="section-header reveal" style="margin-bottom: 32px;">
+            <span class="section-tag">Interactive Audio Studio &amp; Smart Playlists</span>
+            <h1 class="section-title">Discover, Analyze &amp; Match Your Music</h1>
+            <p class="section-desc">
+              Upload your favorite tracks or record audio directly from your microphone. MusicMatch listens to tempo, tone, and musical energy to organize your library into vibe playlists and find matching songs worldwide.
+            </p>
+          </div>
+
+          <!-- Alert / Status Notifications -->
+          <div id="status-alert" class="alert" style="display: none;"></div>
+
+          <!-- Dynamic Audio Input Studio Card -->
+          <div class="glass-card reveal">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+              <h2 style="font-size: 1.35rem; display: flex; align-items: center; gap: 10px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+                <span>Step 1: Add Your Audio Tracks</span>
+              </h2>
+
+              <!-- Input Mode Selector Tabs -->
+              <div style="display: flex; gap: 8px;">
+                <button type="button" id="tab-upload-btn" class="btn btn-secondary btn-sm" style="background: rgba(157, 78, 221, 0.2); border-color: var(--accent-purple);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Upload Files</span>
+                </button>
+                <button type="button" id="tab-mic-btn" class="btn btn-secondary btn-sm">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                  <span>Record from Mic</span>
+                </button>
+                <button type="button" id="load-samples-btn" class="btn btn-secondary btn-sm" style="background: rgba(6, 182, 212, 0.2); border-color: #06b6d4; color: #22d3ee;" title="Load 5 sample tracks for quick testing">
+                  <span>⚡ Load Sample Tracks</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tab 1: File Upload Dropzone -->
+            <div id="upload-panel">
+              <div class="dropzone" id="upload-dropzone">
+                <label for="audio-file-input" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Upload Audio Files</label>
+                <input type="file" id="audio-file-input" multiple accept=".mpeg,.mpg,.mpga,.mp3,.wav,.m4a,.aac,.opus,.ogg,.webm,.flac,.amr,audio/*" style="display: none;" aria-label="Upload Audio Files">
+                <div class="dropzone-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18V5l12-2v13"></path>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <circle cx="18" cy="16" r="3"></circle>
+                  </svg>
+                </div>
+                <h3 class="dropzone-title">Click to Browse or Drag &amp; Drop Your Audio Files</h3>
+                <p class="dropzone-subtitle">Supports <strong>MPEG (.mpeg, .mpg), WhatsApp Audio, MP3, WAV, M4A, AAC, OPUS</strong></p>
+              </div>
+            </div>
+
+            <!-- Tab 2: Live Microphone Recording Studio -->
+            <div id="mic-panel" style="display: none;">
+              <div class="mic-studio" id="mic-studio-box">
+                <button type="button" class="mic-btn" id="record-toggle-btn" title="Click to start recording from your microphone">
+                  <svg id="mic-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                </button>
+
+                <div class="mic-timer" id="record-timer">00:00 / 00:30</div>
+
+                <div class="mic-wave-container" id="mic-waves">
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                  <div class="mic-wave-bar"></div>
+                </div>
+
+                <div id="mic-status-label" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
+                  Ready to Record
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 480px; margin: 0 auto;">
+                  Click the microphone button to capture up to 30 seconds of live music, singing, or instrumental audio directly from your browser.
+                </p>
+              </div>
+            </div>
+
+            <!-- Uploaded / Recorded Audio Files List -->
+            <div style="margin-top: 24px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">
+                  Active Audio Queue (<span id="queue-count">0</span> tracks):
+                </span>
+                <button type="button" id="clear-all-btn" style="background: none; border: none; color: var(--accent-rose); font-size: 0.8rem; cursor: pointer; display: none;">
+                  Clear All
+                </button>
+              </div>
+
+              <div class="file-list" id="file-list">
+                <p style="font-size:0.875rem; color:var(--text-dim); text-align:center; padding:12px;">
+                  No audio tracks added yet. Upload audio files or record using your microphone.
+                </p>
+              </div>
+            </div>
+
+            <!-- Controls: Clusters slider + Action button -->
+            <div class="controls-bar">
+              <div class="slider-group" id="cluster-slider-container">
+                <label for="clusters-slider" class="slider-label">Playlist Groups (Vibes):</label>
+                <input type="range" id="clusters-slider" min="2" max="6" value="3" step="1" aria-label="Playlist Groups">
+                <span class="slider-value" id="clusters-val">3</span>
+              </div>
+
+              <button type="button" id="analyze-btn" class="btn btn-primary btn-lg">
+                <span class="spinner" id="analyze-spinner" style="display: none;"></span>
+                <span class="btn-text">Analyze Audio</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Results Section (Visible after analysis) -->
+          <div id="results-section" style="display: none;" class="reveal">
+            
+            <!-- Summary stats badges -->
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+              <div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 6px;">Your Sound Profile &amp; Playlists</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                  Tempo, rhythm, tone, and texture analyzed across your audio collection in real time.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 12px;">
+                <span class="section-tag" id="songs-count-badge">0 Tracks</span>
+                <span class="section-tag" id="clusters-count-badge" style="background: #101930; border-color: rgba(58,134,255,0.3); color: #8ab4f8;">
+                  0 Playlist Groups
+                </span>
+              </div>
+            </div>
+
+            <!-- Interactive Visual Sound Map -->
+            <div class="glass-card" style="margin-bottom: 32px; padding: 28px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="font-size: 1.25rem; display: flex; align-items: center; gap: 8px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
+                  </svg>
+                  <span>Interactive Visual Sound Map</span>
+                </h3>
+                <span style="font-size: 0.825rem; color: var(--text-muted);">
+                  Hover for sound details • Click any track to select it for music matching
+                </span>
+              </div>
+
+              <div class="chart-container">
+                <canvas id="pca-canvas"></canvas>
+                <div id="chart-tooltip" class="chart-tooltip"></div>
+              </div>
+            </div>
+
+            <!-- Results Table -->
+            <div class="glass-card" style="margin-bottom: 32px;">
+              <h3 style="font-size: 1.25rem; margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span>Song Sound Profiles &amp; Playlist Groups</span>
+              </h3>
+
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Song Name</th>
+                      <th>Assigned Playlist Group</th>
+                      <th>Tempo (BPM)</th>
+                      <th>Sonic Brightness</th>
+                      <th>Sound Map Position</th>
+                    </tr>
+                  </thead>
+                  <tbody id="songs-table-body">
+                    <!-- Dynamic rows inserted by demo.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SPOTIFY RECOMMENDATIONS STUDIO -->
+            <div class="glass-card" style="margin-bottom: 32px; border-color: rgba(30, 215, 96, 0.4); box-shadow: 0 0 35px rgba(30, 215, 96, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: #1ed760; display: flex; align-items: center; justify-content: center; color: #000;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
+                    </div>
+                    <h3 style="font-size: 1.45rem; font-weight: 800;">Spotify Matching Songs</h3>
+                  </div>
+                  <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    Finds tracks on Spotify that share the exact tempo, energy level, and acoustic warmth of your selected song.
+                  </p>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span id="spotify-active-indicator" style="font-size: 0.85rem; color: #1ed760; font-weight: 600;">
+                    API Connected
+                  </span>
+                  <button type="button" class="btn btn-secondary btn-sm" id="spotify-settings-btn" title="Configure Spotify Client ID & Secret" style="font-size: 0.8rem; padding: 6px 14px; border-color: rgba(30,215,96,0.4); color: #1ed760; display: inline-flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    <span id="spotify-badge-text">Spotify Settings</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Spotify Controls Bar -->
+              <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; background: rgba(0, 0, 0, 0.25); padding: 18px; border-radius: var(--radius-md);">
+                <div style="flex: 1; min-width: 220px;">
+                  <label for="spotify-seed-song" style="display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+                    Seed Audio Track:
+                  </label>
+                  <select id="spotify-seed-song" class="custom-select" style="width: 100%;">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+
+                <div style="min-width: 180px;">
+                  <label for="spotify-genre-select" style="display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+                    Genre / Mood Vibe:
+                  </label>
+                  <select id="spotify-genre-select" class="custom-select" style="width: 100%;">
+                    <option value="pop">Pop / Mainstream</option>
+                    <option value="electronic">Electronic / EDM</option>
+                    <option value="dance">Dance / House</option>
+                    <option value="rock">Rock / Alternative</option>
+                    <option value="indie">Indie / Bedroom Pop</option>
+                    <option value="hip-hop">Hip-Hop / Rap</option>
+                    <option value="ambient">Ambient / Chillout</option>
+                    <option value="acoustic">Acoustic / Folk</option>
+                    <option value="jazz">Jazz / Smooth</option>
+                  </select>
+                </div>
+
+                <div style="align-self: flex-end;">
+                  <button type="button" id="spotify-recommend-btn" class="spotify-btn" style="padding: 12px 24px; font-size: 0.95rem;">
+                    <span class="spinner" id="spotify-spinner" style="display: none; width: 16px; height: 16px; border-color: rgba(0,0,0,0.2); border-top-color: #000;"></span>
+                    <span>Find on Spotify</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Spotify Track Cards Grid -->
+              <div id="spotify-cards-container" class="rec-cards-grid">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Intra-Catalog Similarity Recommender (for multiple tracks) -->
+            <div class="rec-box glass-card" id="catalog-similarity-box">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+                <div>
+                  <h3 style="font-size: 1.35rem; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>Find Similar Tracks in Your Library</span>
+                  </h3>
+                  <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    Discover sibling tracks from your collection with matching tempo, rhythmic pulse, and sonic color.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Recommendation Controls -->
+              <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 24px;">
+                <div style="flex: 1; min-width: 240px;">
+                  <label for="rec-song-select" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted);">
+                    Target Reference Track:
+                  </label>
+                  <select id="rec-song-select" class="custom-select" style="width: 100%;">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+
+                <div>
+                  <label for="rec-count-slider" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted);">
+                    Top Matches (Count):
+                  </label>
+                  <div class="slider-group" style="padding: 9px 18px;">
+                    <input type="range" id="rec-count-slider" min="1" max="5" value="3" step="1">
+                    <span class="slider-value" id="rec-count-val">3</span>
+                  </div>
+                </div>
+
+                <div style="align-self: flex-end;">
+                  <button type="button" id="recommend-btn" class="btn btn-glow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Find Similar Songs</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Recommendation Cards Container -->
+              <div id="rec-cards-container" class="rec-cards-grid">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Spotify API Settings Modal Dialog -->
+    <div class="modal-backdrop" id="spotify-modal">
+      <div class="modal-dialog">
+        <button type="button" class="modal-close-btn" id="close-spotify-modal" aria-label="Close dialog">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: #1ed760; display: flex; align-items: center; justify-content: center; color: #000;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+          </div>
+          <h2 style="font-size: 1.5rem;">Connect to Spotify</h2>
+        </div>
+
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+          Link your Spotify account credentials to listen to live song previews, view high-res album covers, and stream recommended tracks.
+        </p>
+
+        <div id="spotify-modal-feedback" style="display: none; margin-bottom: 16px;"></div>
+
+        <form id="spotify-keys-form">
+          <div class="form-group">
+            <label for="spotify-client-id" class="form-label">Spotify Client ID</label>
+            <input type="text" id="spotify-client-id" class="form-input" placeholder="e.g. 4a8b7c9d..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="spotify-client-secret" class="form-label">Spotify Client Secret</label>
+            <input type="password" id="spotify-client-secret" class="form-input" placeholder="e.g. 9e8d7c6b..." required>
+          </div>
+
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 20px; line-height: 1.5;">
+            💡 <strong>How to get free Spotify keys:</strong><br>
+            1. Visit <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener" style="color: #1ed760; text-decoration: underline;">developer.spotify.com/dashboard</a>.<br>
+            2. Log in and click <strong>Create App</strong>.<br>
+            3. Copy the <strong>Client ID</strong> and <strong>Client Secret</strong> into the fields above.
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button type="submit" class="spotify-btn" style="flex: 1; justify-content: center; padding: 12px;">
+              <span>Test &amp; Save Credentials</span>
+            </button>
+            <button type="button" id="spotify-clear-btn" class="btn btn-secondary btn-sm" style="display: none;">
+              Disconnect
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- User Authentication Modal (Sign In / Register) -->
+    <div class="modal-backdrop" id="auth-modal">
+      <div class="modal-dialog">
+        <button type="button" class="modal-close-btn" id="close-auth-modal" aria-label="Close dialog">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Auth Tabs Header -->
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" data-tab="login">Sign In</button>
+          <button type="button" class="auth-tab-btn" data-tab="register">Create Account</button>
+        </div>
+
+        <div id="auth-modal-feedback" style="display: none;"></div>
+
+        <!-- Login Pane -->
+        <div class="auth-tab-pane active" id="auth-pane-login">
+          <form id="auth-login-form">
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="login-username" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Username</label>
+              <input type="text" id="login-username" class="form-input" placeholder="e.g. musiclover" required autocomplete="username" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label for="login-password" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Password</label>
+              <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" style="width: 100%; justify-content: center; padding: 12px;">
+              <span>Sign In to MusicMatch</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Register Pane -->
+        <div class="auth-tab-pane" id="auth-pane-register">
+          <form id="auth-register-form">
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="reg-username" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Username</label>
+              <input type="text" id="reg-username" class="form-input" placeholder="Choose a username (min 3 chars)" minlength="3" required autocomplete="username" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="reg-email" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Email Address</label>
+              <input type="email" id="reg-email" class="form-input" placeholder="you@domain.com" required autocomplete="email" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label for="reg-password" class="form-label" style="display: block; margin-bottom: 6px; font-size: 0.85rem; color: #d4d4d8;">Password</label>
+              <input type="password" id="reg-password" class="form-input" placeholder="Create password (min 6 chars)" minlength="6" required autocomplete="new-password" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" style="width: 100%; justify-content: center; padding: 12px;">
+              <span>Create Free Account</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Saved Sessions Library Modal -->
+    <div class="modal-backdrop" id="library-modal">
+      <div class="modal-dialog library-modal-dialog">
+        <button type="button" class="modal-close-btn" id="close-library-modal" aria-label="Close dialog">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+          <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(6, 182, 212, 0.2); border: 1px solid rgba(6, 182, 212, 0.4); display: flex; align-items: center; justify-content: center; color: #22d3ee;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 style="font-size: 1.4rem; color: #fff;">My Saved Sessions</h2>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0;">Restoring a session reloads your analyzed tracks, visual sound map, and curated playlist groups.</p>
+          </div>
+        </div>
+
+        <div class="library-sessions-container" id="library-sessions-list">
+          <!-- Populated dynamically via auth.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="brand-logo" style="margin-bottom: 8px;">
+              <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <span>MusicMatch</span>
+            </a>
+            <p>A sound-first music discovery and playlist curation platform that analyzes tempo, rhythm, and timbre so music lovers and editors can find the perfect match.</p>
+          </div>
+
+          <div class="footer-links-group">
+            <div class="footer-column">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="demo.html">Explore Music</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Project</h4>
+              <ul>
+                <li><a href="about.html">About Team</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="https://github.com" target="_blank" rel="noopener">Source Code</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Sound Discovery</h4>
+              <ul>
+                <li><a href="how-it-works.html">Tempo &amp; Rhythm Matching</a></li>
+                <li><a href="how-it-works.html">Mood &amp; Vibe Playlists</a></li>
+                <li><a href="how-it-works.html">Spotify Integration</a></li>
+                <li><a href="how-it-works.html">Visual Sound Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 MusicMatch. Designed for Music Editors, Curators &amp; Sound Lovers.</div>
+          <div>Audio Engine: High-Fidelity Waveform Processing &amp; Interactive Visualizations</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/scene.js?v=2.5"></script>
+  <script src="js/main.js?v=2.5"></script>
+  <script src="js/auth.js?v=2.5"></script>
+  <script src="js/demo.js?v=2.5"></script>
+</body>
+</html>

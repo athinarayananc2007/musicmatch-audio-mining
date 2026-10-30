@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | MusicMatch Pure Sound Discovery</title>
+  <meta name="description" content="Discover the story and vision behind MusicMatch—built to empower music editors, curators, and listeners through pure acoustic music discovery.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Fixed 3D Background Canvas -->
+  <canvas id="bg-canvas" data-scene="light"></canvas>
+  <div class="bg-glow-mesh"></div>
+
+  <div class="content-wrapper">
+    <!-- Sticky Navbar -->
+    <header class="navbar" id="main-nav">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <span>MusicMatch</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+            <li><a href="demo.html" class="nav-link">Explore Music</a></li>
+            <li><a href="about.html" class="nav-link active">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta-btn">
+          <a href="demo.html" class="btn btn-primary btn-sm">Explore Music</a>
+        </div>
+
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="demo.html" class="nav-link">Explore Music</a>
+      <a href="about.html" class="nav-link active">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div style="margin-top: 12px;">
+        <a href="demo.html" class="btn btn-primary btn-sm" style="width: 100%;">Explore Music</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="section section-sm" style="padding-top: 120px;">
+        <div class="container">
+          <!-- Section Header -->
+          <div class="section-header reveal">
+            <span class="section-tag">About The Platform</span>
+            <h1 class="section-title">The Vision Behind MusicMatch</h1>
+            <p class="section-desc">
+              Empowering music editors, sound curators, and passionate listeners with pure acoustic discovery that puts sound, rhythm, and feeling first.
+            </p>
+          </div>
+
+          <!-- Project Story -->
+          <div class="glass-card reveal" style="margin-bottom: 48px; padding: 42px;">
+            <h2 style="font-size: 1.75rem; margin-bottom: 16px;">Our Story &amp; Vision</h2>
+            <p style="margin-bottom: 16px; font-size: 1.05rem;">
+              Most commercial music recommendation systems rely on popularity charts and user history: <em>"Users who listened to Track A also listened to Track B."</em> While this works for mainstream radio hits, it leaves sound editors, filmmakers, curators, and independent artists stranded. Great songs with unique vibes get lost simply because they lack corporate marketing or millions of plays.
+            </p>
+            <p style="font-size: 1.05rem;">
+              <strong>MusicMatch</strong> was created to put music first. By analyzing the sound waves directly—evaluating rhythmic tempo, vocal warmth, instrumental presence, and harmonic brightness—MusicMatch listens to music the way human ears do. It automatically groups tracks into cohesive mood collections and plots your library onto an interactive visual sound map, making track selection, playlist creation, and audio curation effortless.
+            </p>
+          </div>
+
+          <!-- Platform Pillars -->
+          <div class="section-header reveal" style="margin-bottom: 32px;">
+            <span class="section-tag">Platform Pillars</span>
+            <h2 class="section-title" style="font-size: 2.2rem;">Built for Pure Sound Discovery</h2>
+          </div>
+
+          <div class="grid-3" style="margin-bottom: 56px;">
+            <!-- Pure Sound Analysis -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: #3776ab;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-5l4 2.5-4 2.5z"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Pure Sound Analysis</h3>
+              <p class="card-desc">
+                Listens directly to tempo, cadence, timbre, and harmonic frequencies without needing text tags, metadata, or artist fame.
+              </p>
+            </div>
+
+            <!-- Harmonic Playlist Sorting -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: var(--accent-cyan);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                  <line x1="4" y1="22" x2="4" y2="15"></line>
+                </svg>
+              </div>
+              <h3 class="card-title">Harmonic Playlists</h3>
+              <p class="card-desc">
+                Automatically organizes your audio collection into smooth, mood-matched playlists and soundscape collections in seconds.
+              </p>
+            </div>
+
+            <!-- Visual Sound Map -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: var(--accent-pink);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 10v3"></path>
+                  <path d="M6 6v11"></path>
+                  <path d="M10 3v18"></path>
+                  <path d="M14 8v7"></path>
+                  <path d="M18 5v13"></path>
+                  <path d="M22 10v3"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Visual Sound Map</h3>
+              <p class="card-desc">
+                Explore your music library as an interactive 2D galaxy where similar songs cluster together—point, hover, and click to preview.
+              </p>
+            </div>
+
+            <!-- Acoustic Match Scoring -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: var(--accent-amber);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Acoustic Match Scoring</h3>
+              <p class="card-desc">
+                Find the perfect follow-up track for your video edit or DJ set with precision similarity scoring based on rhythm and energy.
+              </p>
+            </div>
+
+            <!-- Instant Audio Ingestion -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: var(--accent-purple);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </div>
+              <h3 class="card-title">Flexible Audio Ingestion</h3>
+              <p class="card-desc">
+                Drag and drop MP3, WAV, or AAC audio files, or record live from your microphone for instant on-the-fly sound profiling.
+              </p>
+            </div>
+
+            <!-- Spotify Catalog Search -->
+            <div class="glass-card reveal">
+              <div class="card-icon" style="color: var(--accent-emerald);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
+                </svg>
+              </div>
+              <h3 class="card-title">Spotify Global Search</h3>
+              <p class="card-desc">
+                Connect directly with Spotify to discover matching songs, 30-second previews, and album art from the worldwide music catalog.
+              </p>
+            </div>
+          </div>
+
+          <!-- Team Members Section -->
+          <div class="section-header reveal" style="margin-bottom: 32px;">
+            <span class="section-tag">Sound &amp; Design Team</span>
+            <h2 class="section-title" style="font-size: 2.2rem;">Crafted by Audio Innovators</h2>
+          </div>
+
+          <div class="grid-3" style="margin-bottom: 32px;">
+            <!-- Member 1 -->
+            <div class="glass-card reveal" style="text-align: center;">
+              <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--grad-primary); margin: 0 auto 18px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: #fff; box-shadow: 0 0 20px rgba(157,78,221,0.5);">
+                AD
+              </div>
+              <h3 class="card-title" style="margin-bottom: 4px;">Aria Daniels</h3>
+              <div style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; margin-bottom: 12px;">
+                Head of Audio Innovation
+              </div>
+              <p class="card-desc" style="font-size: 0.9rem;">
+                Focuses on sound wave analysis, music curation workflows, and intuitive sound discovery for editors and creators.
+              </p>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="glass-card reveal" style="text-align: center;">
+              <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--grad-pink-blue); margin: 0 auto 18px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: #fff; box-shadow: 0 0 20px rgba(255,0,127,0.5);">
+                MN
+              </div>
+              <h3 class="card-title" style="margin-bottom: 4px;">Marcus Novak</h3>
+              <div style="font-size: 0.85rem; color: var(--accent-pink); font-weight: 600; margin-bottom: 12px;">
+                Audio Engine Lead
+              </div>
+              <p class="card-desc" style="font-size: 0.9rem;">
+                Passionate about sound engineering, beat analysis, and harmonic matching across diverse musical genres.
+              </p>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="glass-card reveal" style="text-align: center;">
+              <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--grad-purple-pink); margin: 0 auto 18px auto; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: #fff; box-shadow: 0 0 20px rgba(123,44,191,0.5);">
+                SL
+              </div>
+              <h3 class="card-title" style="margin-bottom: 4px;">Sophia Lin</h3>
+              <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 600; margin-bottom: 12px;">
+                Lead Creative &amp; Product Designer
+              </div>
+              <p class="card-desc" style="font-size: 0.9rem;">
+                Crafts immersive visual sound maps and intuitive workflows for sound editors, DJs, and music listeners.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="brand-logo" style="margin-bottom: 8px;">
+              <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <span>MusicMatch</span>
+            </a>
+            <p>An intelligent sound-based music discovery and recommendation platform designed for music editors, sound curators, and passionate listeners.</p>
+          </div>
+
+          <div class="footer-links-group">
+            <div class="footer-column">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="demo.html">Explore Music</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Platform</h4>
+              <ul>
+                <li><a href="about.html">About Vision</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="demo.html">Music Studio</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Sound Features</h4>
+              <ul>
+                <li><a href="how-it-works.html">Acoustic Profiling</a></li>
+                <li><a href="how-it-works.html">Harmonic Playlists</a></li>
+                <li><a href="how-it-works.html">Track Similarity</a></li>
+                <li><a href="how-it-works.html">Visual Sound Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 MusicMatch. Designed for Music Editors, Sound Curators &amp; Dedicated Listeners.</div>
+          <div>Pure Sound Discovery &bull; Spotify Powered</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/scene.js?v=2.4"></script>
+  <script src="js/main.js?v=2.4"></script>
+</body>
+</html>

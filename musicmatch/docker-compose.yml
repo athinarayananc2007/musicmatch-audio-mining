@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# MusicMatch — docker-compose.yml
+# Orchestrates the Flask backend + Nginx frontend as two services.
+#
+# Usage:
+#   docker-compose up --build       # Build and start both services
+#   docker-compose up -d            # Run in detached (background) mode
+#   docker-compose down             # Stop and remove containers
+#   docker-compose logs -f backend  # Stream backend logs
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+
+  # ── Flask + Python Backend ──────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: musicmatch-backend
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=production
+      - JWT_SECRET=${JWT_SECRET:-musicmatch-change-me-in-prod}
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID:-}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET:-}
+    volumes:
+      # Persist the SQLite database and uploaded audio across restarts
+      - backend_data:/app/musicmatch.db
+      - uploads_data:/app/uploads
+    networks:
+      - musicmatch_net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ── Nginx Frontend (static files + reverse proxy) ───────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: musicmatch-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - musicmatch_net
+
+# ─── Volumes ──────────────────────────────────────────────────────────────────
+volumes:
+  backend_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+# ─── Networks ─────────────────────────────────────────────────────────────────
+networks:
+  musicmatch_net:
+    driver: bridge

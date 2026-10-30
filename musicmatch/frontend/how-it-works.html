@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How It Works | MusicMatch Sound Discovery</title>
+  <meta name="description" content="Explore how MusicMatch listens to your audio tracks: analyzing beat speed, timbre, acoustic texture, and mood to build harmonious playlists and visual soundscapes.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Fixed 3D Background Canvas -->
+  <canvas id="bg-canvas" data-scene="light"></canvas>
+  <div class="bg-glow-mesh"></div>
+
+  <div class="content-wrapper">
+    <!-- Sticky Navbar -->
+    <header class="navbar" id="main-nav">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <span>MusicMatch</span>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="features.html" class="nav-link">Features</a></li>
+            <li><a href="how-it-works.html" class="nav-link active">How It Works</a></li>
+            <li><a href="demo.html" class="nav-link">Explore Music</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta-btn">
+          <a href="demo.html" class="btn btn-primary btn-sm">Explore Music</a>
+        </div>
+
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="features.html" class="nav-link">Features</a>
+      <a href="how-it-works.html" class="nav-link active">How It Works</a>
+      <a href="demo.html" class="nav-link">Explore Music</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <div style="margin-top: 12px;">
+        <a href="demo.html" class="btn btn-primary btn-sm" style="width: 100%;">Explore Music</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Page Header -->
+      <section class="section section-sm" style="padding-top: 120px;">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">How The Magic Happens</span>
+            <h1 class="section-title">How MusicMatch Analyzes Your Music</h1>
+            <p class="section-desc">
+              A clear look at how MusicMatch listens to audio waves, understands rhythm and tone, and groups tracks that naturally complement each other for editors and listeners.
+            </p>
+          </div>
+
+          <!-- 4-Step Vertical Timeline -->
+          <div class="timeline-vertical">
+            <!-- Step 1 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-badge">1</div>
+              <div class="timeline-content">
+                <span class="timeline-tag">Step 1: Audio Ingestion</span>
+                <h3 class="card-title">Upload &amp; High-Fidelity Audio Ingestion</h3>
+                <p class="card-desc">
+                  Upload your favorite songs, mix cuts, or podcast stems in MP3 or WAV format, or record directly with your microphone. MusicMatch securely reads the audio stream, preparing the sound waves for consistent acoustic analysis without modifying your original files.
+                </p>
+                <div style="margin-top: 16px; background: rgba(124, 58, 237, 0.1); border-left: 3px solid var(--accent-purple); border-radius: var(--radius-sm); padding: 12px; font-size: 0.88rem; color: var(--text-muted);">
+                  <strong style="color: #fff;">For Editors &amp; Curators:</strong> Compatible with any standard audio file. No manual tagging or file renaming needed.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-badge">2</div>
+              <div class="timeline-content">
+                <span class="timeline-tag">Step 2: Acoustic Profiling</span>
+                <h3 class="card-title">Analyzing Rhythm, Tone &amp; Timbral Warmth</h3>
+                <p class="card-desc">
+                  Instead of relying on biased genre labels, MusicMatch listens deeply to the actual musical elements that give each track its distinctive personality:
+                </p>
+                <ul style="margin: 12px 0 16px 20px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">
+                  <li><strong>Timbre &amp; Texture:</strong> Captures harmonic richness, vocal warmth, instrument presence, and acoustic textures.</li>
+                  <li><strong>Tempo &amp; Rhythm (BPM):</strong> Detects the heartbeat of the music, beat cadence, and rhythmic pace.</li>
+                  <li><strong>Brightness &amp; Energy:</strong> Measures the tonal balance—from warm, mellow lows to crisp, bright, and vibrant highs.</li>
+                </ul>
+                <div style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid var(--accent-cyan); border-radius: var(--radius-sm); padding: 12px; font-size: 0.88rem; color: var(--text-muted);">
+                  <strong style="color: #fff;">Why It Matters:</strong> You get recommendations that match the exact mood, tempo, and sonic color of your scene or playlist.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-badge">3</div>
+              <div class="timeline-content">
+                <span class="timeline-tag">Step 3: Smart Organization</span>
+                <h3 class="card-title">Balanced Scoring &amp; Harmonic Playlist Clustering</h3>
+                <p class="card-desc">
+                  Every musical trait is balanced equally so that faster songs or brighter instruments don't overpower subtler textures. MusicMatch then intelligently clusters the catalog into harmonious sound groups, building cohesive playlists tailored to energy level, mood, and genre-defying sonic similarities.
+                </p>
+                <div style="margin-top: 16px; background: rgba(124, 58, 237, 0.1); border-left: 3px solid var(--accent-purple); border-radius: var(--radius-sm); padding: 12px; font-size: 0.88rem; color: var(--text-muted);">
+                  <strong style="color: #fff;">Automated Curation:</strong> Instantly sorts hours of audio into curated sets without hours of manual sorting.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-badge">4</div>
+              <div class="timeline-content">
+                <span class="timeline-tag">Step 4: Interactive Discovery</span>
+                <h3 class="card-title">Sonic Matching &amp; Visual Sound Map</h3>
+                <p class="card-desc">
+                  Select any track in your collection to instantly find its closest musical siblings based on acoustic compatibility. MusicMatch measures the harmonic distance between tracks and presents them in rank order, from closest sonic match to contrasting vibes.
+                </p>
+                <p class="card-desc" style="margin-top: 10px;">
+                  At the same time, your entire audio catalog is mapped onto an interactive 2D Visual Sound Map. Similar songs cluster together in space, allowing editors and listeners to navigate through music visually—just point and click to preview.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Demo Callout -->
+          <div class="glass-card reveal" style="text-align: center; margin-top: 50px; padding: 48px;">
+            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 14px;">Explore Your Sound Today</h2>
+            <p class="section-desc" style="margin-bottom: 28px;">
+              Test MusicMatch with sample tracks or upload your own library to see sound-based discovery in action.
+            </p>
+            <a href="demo.html" class="btn btn-primary btn-lg">
+              <span>Explore Music Studio</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html" class="brand-logo" style="margin-bottom: 8px;">
+              <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <span>MusicMatch</span>
+            </a>
+            <p>An intelligent sound-based music discovery and recommendation platform designed for music editors, sound curators, and passionate listeners.</p>
+          </div>
+
+          <div class="footer-links-group">
+            <div class="footer-column">
+              <h4>Navigation</h4>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="demo.html">Explore Music</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Platform</h4>
+              <ul>
+                <li><a href="about.html">About Vision</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="demo.html">Music Studio</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-column">
+              <h4>Sound Features</h4>
+              <ul>
+                <li><a href="how-it-works.html">Acoustic Profiling</a></li>
+                <li><a href="how-it-works.html">Harmonic Playlists</a></li>
+                <li><a href="how-it-works.html">Track Similarity</a></li>
+                <li><a href="how-it-works.html">Visual Sound Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 MusicMatch. Designed for Music Editors, Sound Curators &amp; Dedicated Listeners.</div>
+          <div>Pure Sound Discovery &bull; Spotify Powered</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/scene.js?v=2.4"></script>
+  <script src="js/main.js?v=2.4"></script>
+</body>
+</html>
